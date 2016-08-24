@@ -1,0 +1,20 @@
+<% @header = 'Success!' %>
+
+<p class='alert alert-success'>
+  Your Canvas accounts have been merged. <br/><br/>
+  To return to Canvas, click the link above or be redirected in <span id='countdown'>5</span> seconds.
+</p>
+
+<script type='text/javascript'>
+  var countdown = 5;
+  var countdownElement = document.getElementById('countdown');
+  setInterval(function(){
+    countdown -= 1;
+    if (countdown <= 0) {
+      window.location = '<%= settings.canvas_url %>';
+    } else {
+      countdownElement.innerHTML = countdown;
+    }
+  }, 1000);
+</script>
+

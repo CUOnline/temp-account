@@ -1,0 +1,47 @@
+@font-face {
+  font-family: OpenSans;
+  src: url("/OpenSans-Regular.ttf")
+}
+
+body {
+  background-color: #565a5c;
+  font-family: OpenSans;
+}
+
+.btn-cu {
+  background-color: #ceb87c;
+  border-color: black;
+  display:block;
+  margin:40px auto 20px auto;
+  width: 29%;
+}
+
+.btn-cu:hover {
+  background-color: #b8a162;
+  border-color: black;
+}
+
+.glyphicon {
+  display:block;
+  font-size: 3em;
+  margin: 20px;
+}
+
+#canvas-url {
+  font-size: .7em;
+}
+
+#content {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  box-shadow: 1px 1px 5px #555555;
+}
+
+#logo {
+  margin:50px auto;
+  display:block;
+  width: 275px;
+}

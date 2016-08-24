@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Temporary Canvas Account</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+  <link rel="stylesheet" href='<%= mount_point %>/style.css'>
+</head>
+
+<img id='logo' src='<%= mount_point%>/cu-online.png'/>
+<div id="content" class="card">
+  <div class="card-header">
+    <h3><%= @header %></h3>
+    <% unless !settings.respond_to?(:canvas_url) || @hide_canvas_url %>
+      <a href='<%= settings.canvas_url %>'>
+        <em id='canvas-url'><%= settings.canvas_url %></em>
+      </a>
+    <% end%>
+  </div>
+
+  <div class="card-block">
+    <%= styled_flash %>
+    <%= yield %>
+  </div>
+</div>
