@@ -3,7 +3,6 @@ require 'wolf_core'
 require 'sinatra/canvas_auth'
 require 'sinatra/formkeeper'
 require 'resque-scheduler'
-require 'active_support/core_ext/numeric/time.rb'
 
 Dir.glob(File.join('helpers', '*.rb'), &method(:require))
 Dir.glob(File.join('lib', '*.rb'), &method(:require))

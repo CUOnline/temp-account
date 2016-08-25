@@ -29,11 +29,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.0.0.1)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (~> 0.7)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
     airbrussh (1.1.0)
       sshkit (>= 1.6.1, != 1.7.0)
     backports (3.6.8)
@@ -48,7 +43,6 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    concurrent-ruby (1.0.2)
     dbd-odbc (0.2.5)
       dbi (>= 0.4.0)
     dbi (0.4.5)
@@ -145,12 +139,9 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.7.7)
-    thread_safe (0.3.5)
     tilt (2.0.5)
     typhoeus (1.1.0)
       ethon (>= 0.9.0)
-    tzinfo (1.2.2)
-      thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -161,7 +152,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 5.0)
   capistrano (~> 3.6)
   capistrano-bundler (~> 1.1)
   faraday (~> 0.9)

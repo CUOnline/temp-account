@@ -4,7 +4,6 @@ gem 'wolf_core', :git => 'https://github.com/cuonline/wolf_core'
 gem 'sinatra-canvas_auth', :git => 'https://github.com/cuonline/sinatra-canvas_auth'
 gem 'sinatra-formkeeper', "~> 0.0"
 
-gem 'activesupport', "~> 5.0"
 gem 'faraday', "~> 0.9"
 gem 'faraday_middleware', "~> 0.10"
 gem 'typhoeus', "~> 1.1"

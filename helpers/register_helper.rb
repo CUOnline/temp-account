@@ -6,7 +6,7 @@ module RegisterHelper
     form do
       field :full_name, :present => true, :length => 0..255
       field :email, :present => true, :regexp => /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-      field :expire_in, :present => true, :int => {:lte => 365}
+      field :expire_in, :present => true, :int => {:gte => 5, :lte => 180}
     end
 
     if form.failed?
@@ -19,12 +19,14 @@ module RegisterHelper
     end
   end
 
-  def queue_workers(expire_in, user)
-    remind_in = (expire_in.to_i - 3).days
-    Resque.enqueue_in(remind_in, ReminderWorker, user.canvas_id, merge_link(user.merge_code))
+  def queue_workers(expire_in_days, user)
+    remind_in_days = (expire_in_days.to_i - 3)
+    remind_in_secs = remind_in_days * 24 * 60 * 60
+    Resque.enqueue_in(remind_in_secs, ReminderWorker, user.canvas_id,
+                      merge_link(user.merge_code))
 
-    expire_in = expire_in.to_i.days
-    Resque.enqueue_in(expire_in, ExpirationWorker, user.canvas_id)
+    expire_in_secs = expire_in_days.to_i * 24 * 60 * 60
+    Resque.enqueue_in(expire_in_secs, ExpirationWorker, user.canvas_id)
   end
 
   def registration_body(expire_in, code)
