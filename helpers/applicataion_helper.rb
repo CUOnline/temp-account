@@ -15,7 +15,7 @@ module ApplicationHelper
   def canvas_api
     return Faraday.new(:url => "#{settings.canvas_url}/api/v1") do |faraday|
       faraday.request :oauth2, settings.canvas_token
-      faraday.response :json, :content_type => /\bjson$$/
+      faraday.response :json, :content_type => /\bjson$/
       faraday.adapter :typhoeus
     end
   end

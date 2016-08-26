@@ -14,7 +14,7 @@ class ApplicationController < WolfCore::App
   register Sinatra::FormKeeper
   register Sinatra::Flash
   register Sinatra::CanvasAuth
-  set :auth_paths, [/\A\/register\z/]
+  set :auth_paths, [/\/register\z/]
 
   # Set as helpers for use in controllers,
   # Register as class methods for use in workers

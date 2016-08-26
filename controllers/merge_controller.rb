@@ -54,10 +54,10 @@ class MergeController < ApplicationController
     rescue TempAccount::MergeError => e
       status 400
       flash.now[:danger] = e.message
-      erb ''
+      return erb ''
     end
 
-    redirect "#{mount_point}/success"
+    redirect "#{mount_point}/merge/success"
   end
 
   get '/success' do

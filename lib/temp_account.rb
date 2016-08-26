@@ -69,7 +69,7 @@ module TempAccount
       response = @canvas_api.post("accounts/#{sandbox_account_id}/courses", api_params)
 
       if response.status != 200
-        raise ApiError 'Account created, but there was a problem creating the sandbox course.'
+        raise ApiError, 'Account created, but there was a problem creating the sandbox course.'
       end
 
       course_id = response.body['id']
