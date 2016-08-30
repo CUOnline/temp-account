@@ -15,4 +15,5 @@ group :test, :deveopment do
   gem 'minitest', '~> 5.9'
   gem 'minitest-rg', '~> 5.2'
   gem 'mocha', '~> 1.1'
+  gem 'byebug', "~> 9.0"
 end

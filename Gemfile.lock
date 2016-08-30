@@ -33,6 +33,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     backports (3.6.8)
     builder (3.2.2)
+    byebug (9.0.5)
     capistrano (3.6.1)
       airbrussh (>= 1.0.0)
       capistrano-harrow
@@ -152,6 +153,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug (~> 9.0)
   capistrano (~> 3.6)
   capistrano-bundler (~> 1.1)
   faraday (~> 0.9)
