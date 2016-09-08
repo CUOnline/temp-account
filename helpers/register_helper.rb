@@ -38,7 +38,7 @@ module RegisterHelper
       html_part do
         content_type 'text/html; charset=UTF-8'
         body "<p>Your temporary Canvas account will expire in #{expire_in} days.</p>"\
-             "<p>Once you get your official Canvas account, visit the link below"\
+             "<p>Once you get your official Canvas account, visit the link below "\
              "to merge in content from your temporary account.</p>"\
              "</p><a href='#{merge_link}'>Merge Accounts</a><p>"
       end

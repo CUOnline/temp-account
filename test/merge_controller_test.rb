@@ -84,7 +84,7 @@ class MergeControllerTest < Minitest::Test
 
     post '/merge', {'code' => code}
     assert_equal 302, last_response.status
-    assert_match /Log into your primary UCD Canvas account/,
+    assert_match /Log into your primary CU Denver Canvas account/,
                  last_request.env['rack.session']['flash'][:danger]
 
     follow_redirect!

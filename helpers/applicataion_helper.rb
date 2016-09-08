@@ -36,7 +36,7 @@ module ApplicationHelper
       html_part do
         content_type 'text/html; charset=UTF-8'
         body "<p>This is a friendly reminder that your temporary canvas account will"\
-             "expire in 3 days.</p><p>If you wish to preserve content from this account,"\
+             "expire in 3 days.</p><p>If you wish to preserve content from this account, "\
              "you can merge it with your primary account by visiting link below.</p>"\
              "<p><a href='#{merge_link}'>Merge Accounts</a></p>"
       end

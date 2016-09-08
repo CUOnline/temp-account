@@ -26,7 +26,7 @@ class MergeController < ApplicationController
   # Primary account is identified by session['user_id'] from OAuth login
   post '/' do
     if !session['user_id']
-      flash[:danger] = 'Log into your primary UCD Canvas account to merge'
+      flash[:danger] = 'Log into your primary CU Denver Canvas account to merge'
       redirect "#{mount_point}/merge?code=#{params['code']}"
     end
 
