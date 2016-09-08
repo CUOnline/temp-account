@@ -16,10 +16,10 @@ module RegisterHelper
   def queue_workers(expire_in_days, canvas_id, merge_link)
     remind_in_days = (expire_in_days.to_i - 3)
     remind_in_secs = remind_in_days * 24 * 60 * 60
-    Resque.enqueue_in(remind_in_secs, ReminderWorker, canvas_id, merge_link)
+    Resque.enqueue_in(remind_in_secs, ReminderWorker, canvas_id.to_i, merge_link)
 
     expire_in_secs = expire_in_days.to_i * 24 * 60 * 60
-    Resque.enqueue_in(expire_in_secs, ExpirationWorker, canvas_id)
+    Resque.enqueue_in(expire_in_secs, ExpirationWorker, canvas_id.to_i)
   end
 
   def registration_body(expire_in, merge_link)

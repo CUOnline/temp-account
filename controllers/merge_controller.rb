@@ -48,8 +48,8 @@ class MergeController < ApplicationController
       end
 
       # Merging deletes temporary account, so no need for future reminding/expiring
+      Resque.remove_delayed(ReminderWorker, temp_id.to_i, merge_link(params['code']))
       Resque.remove_delayed(ExpirationWorker, temp_id.to_i)
-      Resque.remove_delayed(ReminderWorker, temp_id.to_i)
 
     rescue TempAccount::MergeError => e
       status 400

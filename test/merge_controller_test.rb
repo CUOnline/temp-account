@@ -44,6 +44,7 @@ class MergeControllerTest < Minitest::Test
 
   def test_post
     code = '12345-1a1a1a1a-2b2b-3c3c-4d4d-5e5e5e5e5e5e'
+    link = "https://example.org/merge?code=#{code}"
     user = mock()
     user.responds_like_instance_of(TempAccount::User)
     user.expects(:get_custom_data).returns(code)
@@ -53,7 +54,7 @@ class MergeControllerTest < Minitest::Test
     TempAccount::User.expects(:new).with(anything, '12345').returns(user)
     MergeController.any_instance.expects(:canvas_api).twice.returns(api)
     Resque.expects(:remove_delayed).with(ExpirationWorker, 12345)
-    Resque.expects(:remove_delayed).with(ReminderWorker, 12345)
+    Resque.expects(:remove_delayed).with(ReminderWorker, 12345, link)
 
     login
     post '/merge', {'code' => code}
