@@ -42,12 +42,7 @@ class RegisterControllerTest < Minitest::Test
     user.stubs(:canvas_id).returns(canvas_id)
     user.expects(:register).with(full_name, email, canvas_account_id)
     TempAccount::User.expects(:new).returns(user)
-
-    RegisterController.set(:canvas_account_id, canvas_account_id)
-
-
-    RegisterController.any_instance.expects(:registration_body)
-                                    .with(expire_in, merge_link).returns(email_body)
+    RegisterController.settings.stubs(:canvas_account_id).returns(canvas_account_id)
 
     RegisterController.any_instance.expects(:merge_link)
                                     .with(merge_code).returns(merge_link)
@@ -58,9 +53,8 @@ class RegisterControllerTest < Minitest::Test
     RegisterController.any_instance.expects(:queue_workers)
                                    .with(expire_in, canvas_id, merge_link)
 
-    RegisterController.any_instance.expects(:send_mail)
-                                   .with('Your temporary Canvas account has been created',
-                                         email_body, email)
+    RegisterController.any_instance.expects(:send_registration_mail)
+                                   .with(email, expire_in, merge_link)
 
     login
     post '/register', params

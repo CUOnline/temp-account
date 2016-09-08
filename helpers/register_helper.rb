@@ -22,11 +22,27 @@ module RegisterHelper
     Resque.enqueue_in(expire_in_secs, ExpirationWorker, canvas_id.to_i)
   end
 
-  def registration_body(expire_in, merge_link)
-    "Your temporary Canvas account will expire in #{expire_in} days. "\
-    "Once you get your official Canvas account, visit the link below "\
-    "to merge in content from your temporary account. \n"\
-    "<a href='#{merge_link}'>Merge Accounts</a>"
+  def send_registration_mail(to_email, expire_in, merge_link)
+    Mail.deliver do
+      to        to_email
+      from      'Canvas <canvas@ucdenver.edu>'
+      subject   'Your temporary Canvas account has been created'
+
+      text_part do
+        body "Your temporary Canvas account will expire in #{expire_in} days. \n\n"\
+             "Once you get your official Canvas account, visit the URL below "\
+             "to merge in content from your temporary account. \n\n"\
+             "#{merge_link}"
+      end
+
+      html_part do
+        content_type 'text/html; charset=UTF-8'
+        body "<p>Your temporary Canvas account will expire in #{expire_in} days.</p>"\
+             "<p>Once you get your official Canvas account, visit the link below"\
+             "to merge in content from your temporary account.</p>"\
+             "</p><a href='#{merge_link}'>Merge Accounts</a><p>"
+      end
+    end
   end
 
   def get_sandbox_account_id

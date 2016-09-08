@@ -27,9 +27,7 @@ class RegisterController < ApplicationController
 
     merge_link = merge_link(user.merge_code)
     queue_workers(params['expire_in'], user.canvas_id, merge_link)
-    send_mail('Your temporary Canvas account has been created',
-              registration_body(params['expire_in'], merge_link),
-              params['email'])
+    send_registration_mail(params['email'], params['expire_in'], merge_link)
 
     flash.now[:success] = 'Account created successfully.'
     erb :register

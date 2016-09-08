@@ -20,18 +20,25 @@ module ApplicationHelper
     end
   end
 
-  def send_mail(subject, body, to_email)
+  def send_reminder_mail(to_email, merge_link)
     Mail.deliver do
       to        to_email
-      from      'canvas@ucdenver.edu'
-      subject   'Registration'
+      from      'Canvas <canvas@ucdenver.edu>'
+      subject   'Your temporary Canvas is about to expire'
 
       text_part do
-        body body
+        body "This is a friendly reminder that your temporary canvas account will "\
+             "expire in 3 days. If you wish to preserve content from this account,"\
+             "you can merge it with your primary account by visiting URL below. \n\n"\
+             "#{merge_link}"
       end
+
       html_part do
         content_type 'text/html; charset=UTF-8'
-        body body
+        body "<p>This is a friendly reminder that your temporary canvas account will"\
+             "expire in 3 days.</p><p>If you wish to preserve content from this account,"\
+             "you can merge it with your primary account by visiting link below.</p>"\
+             "<p><a href='#{merge_link}'>Merge Accounts</a></p>"
       end
     end
   end
