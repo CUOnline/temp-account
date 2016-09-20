@@ -1,0 +1,17 @@
+p [class='alert alert-success']
+  |  Your Canvas accounts have been merged.
+  |  To return to Canvas, click the link above or be redirected in 
+  span#countdown 5
+  |  seconds.
+
+javascript:
+  var countdown = 5;
+  var countdownElement = document.getElementById('countdown');
+  setInterval(function(){
+    countdown -= 1;
+    if (countdown <= 0) {
+      window.location = '#{settings.canvas_url}';
+    } else {
+      countdownElement.innerHTML = countdown;
+    }
+  }, 1000);

@@ -1,0 +1,19 @@
+.btn-cu {
+  margin:40px auto 20px auto;
+  width: 29%;
+}
+
+.label {
+  margin: 5px;
+}
+
+.glyphicon {
+  display:block;
+  font-size: 3em;
+  margin:20px ;
+}
+
+#content {
+  padding: 15px !important;
+  width: 50% !important;
+}

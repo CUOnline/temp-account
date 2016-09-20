@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.6.1'
+lock '~> 3.6'
 
 set :user, 'fordco'
 set :application, 'temp-account'

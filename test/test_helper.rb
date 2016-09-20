@@ -9,7 +9,7 @@ require 'minitest/autorun'
 require 'minitest/rg'
 require 'mocha/mini_test'
 require 'rack/test'
-require 'byebug'
+require 'webmock/minitest'
 
 # Turn on SSL for all requests
 class Rack::Test::Session
@@ -26,22 +26,16 @@ class Minitest::Test
   include Rack::Test::Methods
 
   def app
-    # Duplicates config.ru routing
-    Rack::Builder.new do
-      map '/' do
-        run ApplicationController
-      end
-      map '/register' do
-        run RegisterController
-      end
-      map '/merge' do
-        run MergeController
-      end
-    end
+    Rack::Builder.parse_file('config.ru').first
   end
 
   def setup
-    ApplicationController.set :mount, ''
+    WebMock.enable!
+    WebMock.reset!
+    WebMock.disable_net_connect!(allow_localhost: true)
+
+    ApplicationController.settings.stubs(:api_cache).returns(false)
+    ApplicationController.settings.stubs(:mount).returns('')
   end
 
   def login(session_params = {})

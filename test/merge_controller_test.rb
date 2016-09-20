@@ -35,6 +35,7 @@ class MergeControllerTest < Minitest::Test
     user = mock()
     user.responds_like_instance_of(TempAccount::User)
     user.stubs(:merge_code).returns(valid_code)
+    TempAccount::User.expects(:new).returns(user)
 
     get '/merge', {'code' => invalid_code}
 
@@ -48,11 +49,9 @@ class MergeControllerTest < Minitest::Test
     user = mock()
     user.responds_like_instance_of(TempAccount::User)
     user.expects(:get_custom_data).returns(code)
-    api = mock()
-    api.expects(:put).with("users/12345/merge_into/123")
-                     .returns(OpenStruct.new(:status => 200))
+    stub_request(:put, /users\/12345\/merge_into\/123/).to_return(:status => 200)
     TempAccount::User.expects(:new).with(anything, '12345').returns(user)
-    MergeController.any_instance.expects(:canvas_api).twice.returns(api)
+
     Resque.expects(:remove_delayed).with(ExpirationWorker, 12345)
     Resque.expects(:remove_delayed).with(ReminderWorker, 12345, link)
 
@@ -112,10 +111,7 @@ class MergeControllerTest < Minitest::Test
     user = mock()
     user.responds_like_instance_of(TempAccount::User)
     user.expects(:get_custom_data).returns(code)
-    api = mock()
-    api.expects(:put).with("users/12345/merge_into/123")
-                     .returns(OpenStruct.new(:status => 500))
-    MergeController.any_instance.expects(:canvas_api).twice.returns(api)
+    stub_request(:put, /users\/12345\/merge_into\/123/).to_return(:status => 500)
     TempAccount::User.expects(:new).with(anything, '12345').returns(user)
 
     login

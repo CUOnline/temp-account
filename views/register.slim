@@ -1,0 +1,20 @@
+link [rel='stylesheet' href='#{mount_point}/assets/wolf_core.css']
+== slim :_header
+
+form [method='POST' action='#{mount_point}/register']
+  div [class='form-group row']
+    label [for='full_name' class='col-xs-4 col-form-label'] Full name:
+    div [class='col-xs-8']
+      input#full_name [class='form-control' type='text' name='full_name']
+
+  div [class='form-group row']
+    label [for='email' class='col-xs-4 col-form-label'] Email:
+    div [class='col-xs-8']
+      input#email [class='form-control' type='text' name='email']
+
+  div [class='form-group row']
+    label [for='expire_in' class='col-xs-4 col-form-label'] Expires In (days):
+    div [class='col-xs-8']
+      input#expire_in [class='form-control' type='text' name='expire_in' value='30']
+
+  input#submit [type='submit' class='btn btn-cu']

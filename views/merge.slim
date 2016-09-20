@@ -1,0 +1,19 @@
+link [rel='stylesheet' href='#{mount_point}/assets/wolf_core.css']
+== slim :_header
+
+form [method='POST' action='#{mount_point}/merge']
+  div.text-center
+    span [class='label label-warning'] Temporary Account
+    = @temp_info
+
+    span [class='glyphicon glyphicon-sort']
+
+    span [class='label label-primary'] Primary Account
+    - if !session['user_id']
+      a [href='#{mount_point}/canvas-auth-login?force_login=1&state=#{mount_point}/merge?code=#{params['code']}']
+        | Log In / Authorize primary account
+    - else
+      | #{session['user_name']} (#{session['user_email']})
+
+  input#code [type='hidden' name='code' value='#{params['code']}']
+  input [type='submit' class='btn btn-cu' value='Merge']

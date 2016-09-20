@@ -1,4 +1,5 @@
 class MergeController < ApplicationController
+  set :title, 'Merge your temporary Canvas account'
 
   get '/' do
     # Generated merge codes are in this format: {temp canvas ID}-{UUID}
@@ -13,11 +14,11 @@ class MergeController < ApplicationController
     # to anyone who provides an invalid code containing a valid Canvas ID
     if user && (user.merge_code == params['code'])
       @temp_info = "#{user.name} (#{user.email})"
-      erb :merge
+      slim :merge
     else
       status 400
       flash.now[:danger] = "Invalid merge link"
-      erb ''
+      slim ''
     end
   end
 
@@ -54,13 +55,13 @@ class MergeController < ApplicationController
     rescue TempAccount::MergeError => e
       status 400
       flash.now[:danger] = e.message
-      return erb ''
+      return slim ''
     end
 
     redirect "#{mount_point}/merge/success"
   end
 
   get '/success' do
-    erb :success
+    slim :success
   end
 end

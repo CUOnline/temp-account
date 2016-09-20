@@ -1,6 +1,5 @@
 require 'bundler/setup'
 require 'wolf_core'
-require 'sinatra/canvas_auth'
 require 'sinatra/formkeeper'
 require 'resque-scheduler'
 
@@ -9,7 +8,8 @@ Dir.glob(File.join('lib', '*.rb'), &method(:require))
 
 class ApplicationController < WolfCore::App
   set :root, File.expand_path(File.join(File.dirname(__FILE__), '..'))
-  set :views, ["#{root}/views", settings.base_views]
+  set :logger, create_logger
+  set :api_cache, false
 
   register Sinatra::FormKeeper
   register Sinatra::Flash

@@ -1,6 +1,13 @@
 require_relative './test_helper'
 
 class RegisterControllerTest < Minitest::Test
+  def test_get
+    login
+    get '/register'
+
+    assert_equal 200, last_response.status
+  end
+
   def test_get_unauthenticated
     get '/register'
 
@@ -9,19 +16,12 @@ class RegisterControllerTest < Minitest::Test
                   last_response.headers["Location"]
   end
 
-  def test_post_unauthenticated
-    post '/register'
-
-    assert_equal 302, last_response.status
-    assert_equal 'https://example.org/register/canvas-auth-login?state=/register',
-                  last_response.headers["Location"]
-  end
-
-  def test_get
-    login
+  def test_get_unauthorized
+    login({'user_roles' => ['StudentEnrollment']})
     get '/register'
-
-    assert_equal 200, last_response.status
+    assert_equal 302, last_response.status
+    follow_redirect!
+    assert_equal '/register/unauthorized', last_request.path
   end
 
   def test_post
@@ -106,5 +106,21 @@ class RegisterControllerTest < Minitest::Test
 
     assert_equal 400, last_response.status
     assert_match /#{error}/, last_response.body
+  end
+
+  def test_post_unauthenticated
+    post '/register'
+
+    assert_equal 302, last_response.status
+    assert_equal 'https://example.org/register/canvas-auth-login?state=/register',
+                  last_response.headers["Location"]
+  end
+
+  def test_post_unauthorized
+    login({'user_roles' => ['StudentEnrollment']})
+    post '/register'
+    assert_equal 302, last_response.status
+    follow_redirect!
+    assert_equal '/register/unauthorized', last_request.path
   end
 end

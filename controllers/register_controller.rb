@@ -1,9 +1,9 @@
 class RegisterController < ApplicationController
-
+  set :title, 'Create a temporary Canvas account'
   helpers RegisterHelper
 
   get '/' do
-    erb :register
+    slim :register
   end
 
   post '/' do
@@ -22,7 +22,7 @@ class RegisterController < ApplicationController
     rescue TempAccount::RegistrationError, TempAccount::ApiError => e
       status 400
       flash.now[:danger] = e.message
-      return fill_in_form(erb :register)
+      return fill_in_form(slim :register)
     end
 
     merge_link = merge_link(user.merge_code)
@@ -30,6 +30,6 @@ class RegisterController < ApplicationController
     send_registration_mail(params['email'], params['expire_in'], merge_link)
 
     flash.now[:success] = 'Account created successfully.'
-    erb :register
+    slim :register
   end
 end
