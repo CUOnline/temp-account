@@ -12,7 +12,7 @@ class RegisterControllerTest < Minitest::Test
     get '/register'
 
     assert_equal 302, last_response.status
-    assert_equal 'https://example.org/register/canvas-auth-login?state=/register',
+    assert_equal 'https://example.org/register/canvas-auth-login',
                   last_response.headers["Location"]
   end
 
@@ -112,7 +112,7 @@ class RegisterControllerTest < Minitest::Test
     post '/register'
 
     assert_equal 302, last_response.status
-    assert_equal 'https://example.org/register/canvas-auth-login?state=/register',
+    assert_equal 'https://example.org/register/canvas-auth-login',
                   last_response.headers["Location"]
   end
 
